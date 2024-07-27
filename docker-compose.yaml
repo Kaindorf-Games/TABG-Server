@@ -2,6 +2,6 @@ version: '3.8'
 
 services:
   tabg:
-    image: tabg
+    image: <<image_name>>
     volumes:
       - ./config:/games/config

@@ -23,8 +23,9 @@ RUN steamcmd +force_install_dir $path  +login anonymous +app_update 2311970 +qui
 
 RUN apt-get update
 RUN apt-get install python3 -y
+RUN apt-get install python3-requests -y
 
-COPY ./script.py .
+COPY ./server-logger ./server-logger
 COPY ./commands.sh .
 RUN ["chmod", "+x", "./commands.sh"]
 

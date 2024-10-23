@@ -1,7 +1,6 @@
 import subprocess
 from datetime import datetime 
 import platform
-import sys
 from manager import Manager
 
 def main():
@@ -15,11 +14,12 @@ def main():
     manager = Manager()
     # Continuously read the output line by line
     try:
-        with open(f"log{datetime.now().strftime('%Y%m%d%H%M%S')}.txt", "w") as file:
+        with open(f"logs/log{datetime.now().strftime('%Y%m%d%H%M%S')}.txt", "w") as file:
+            print("Started Server!")
             while True:
                 output = process.stdout.readline()
                 if output:
-                    print(output.strip())
+                    # print(output.strip())
                     manager.feed_line(output)
                     file.write(output)
         

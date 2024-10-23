@@ -4,6 +4,7 @@ services:
     image: tabg
     volumes:
       - ./config:/games/config
+      - ./logs:/games/logs
     environment:
       - LEADERBOARD_URL=http://192.168.1.130:8001
       - LEADERBOARD_NAME=gametriathlon-vulkan-lan-24

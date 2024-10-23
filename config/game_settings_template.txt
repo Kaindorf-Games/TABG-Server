@@ -1,8 +1,8 @@
 // Allowed word list for name / description: https://github.com/landfallgames/tabg-word-list
 // Name of the server
-ServerName=Test
+ServerName=Green Library 
 // Server Description
-ServerDescription=Description for server /n for new line
+ServerDescription=Server for Vulkan LAN
 //Port To Use
 Port=7777
 // max players on server. Max being 253
@@ -20,22 +20,22 @@ CarSpawnRate=1.0
 UseTimedForceStart=true 
 
 // Seconds until force start the countdown
-ForceStartTime=20.0
+ForceStartTime=60.0
 
 // Players needed to start the force start timer
-MinPlayersToForceStart=2 
+MinPlayersToForceStart=20 
 
 // Players to start countdown
 PlayersToStart=5 
 
 // Seconds it takes to start the game after Players have joined or force start triggered
-Countdown=20.0
+Countdown=60.0
 
 // enable or disable the respawn minigame.
-AllowRespawnMinigame=true
+AllowRespawnMinigame=false
 
 // SQUAD, DUO or SOLO
-TeamMode=SQUAD
+TeamMode=SOLO
 
 // BattleRoyale, Bomb, Brawl, Deception, Test
 GameMode=BattleRoyale

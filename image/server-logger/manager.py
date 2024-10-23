@@ -6,7 +6,9 @@ import json
 import os
 from requests.auth import HTTPBasicAuth
 
-file_name = 'log20240725212819.txt'
+file_name = 'image/server-logger/test.txt'
+
+debug = True
 
 leaderboard_url = os.getenv("LEADERBOARD_URL")
 leaderboard_name = os.getenv("LEADERBOARD_NAME")
@@ -95,15 +97,19 @@ class Manager:
             self.player_event(line)
         elif line == "[Server] - GameStateChangedCommand : Ended":
             self.stopped_ = True
-            self.print_to_file()
             self.generate_points()
+            self.print_to_file()
             send_to_leaderboard_service(list(map(lambda x: {'player_name': x.get_name(), 'points': x.get_points()}, self.get_all_players())))
         pass
     
     def print_to_file(self):
-        with open(f"result_{datetime.now().strftime('%Y%m%d%H%M%S')}", "w") as file:
-            file.write(self.__str__())
-            pass
+        if debug:
+            print(self.__str__())
+        else:
+            with open(f"result_{datetime.now().strftime('%Y%m%d%H%M%S')}", "w") as file:
+                print(self.__str__())
+                file.write(self.__str__())
+                pass
         pass
     
     def generate_points(self):
@@ -116,7 +122,7 @@ class Manager:
     def player_join(self, line: str):
         name = line.split(":")[1][1:-3]
         found_player: Optional[Player] = self.get_player_from_list(name)
-        # print(f"{name} joined")
+        print(f"{name} joined")
         if found_player:
             found_player.activate()
         else:
@@ -127,7 +133,7 @@ class Manager:
         name = line[24:]
         found_player: Optional[Player] = self.get_player_from_list(name)
         if found_player:
-            # print(f"{found_player.get_name()} left")
+            print(f"{found_player.get_name()} left")
             found_player.deactivate()
     
     @action
@@ -143,6 +149,7 @@ class Manager:
         id = int(line.split(":")[1].split(" ")[1])
         found_player: Player = self.get_player_from_list_with_id(id)
         if found_player:
+            print(f"{found_player.name_} killed!")
             found_player.kill()
     
     def get_list_of_player_init_logs(self) -> list[str]:
@@ -181,20 +188,22 @@ class Manager:
 
 
 def send_to_leaderboard_service(request: list[dict[str, any]]):
-    put(f"{leaderboard_url}/leaderboard/multigame/{leaderboard_name}/{game_name}", data=json.dumps(request), auth=HTTPBasicAuth("game", "1234"))
+    if debug:
+        print(request)
+    else:
+        # put(f"{leaderboard_url}/leaderboard/multigame/{leaderboard_name}/{game_name}", data=json.dumps(request), auth=HTTPBasicAuth("game", "1234"))
+        pass
     pass
 
 def main():
+    global debug
+    debug = True
     # Continuously read the output line by line
     with open(file_name, "r") as file:
         manager: Manager = Manager()
         for line in file.readlines():
             manager.feed_line(line)
             pass
-        manager.generate_points()
-        # send_to_leaderboard_service(list(map(lambda x: {'player_name': x.get_name(), 'points': x.get_points()}, manager.get_all_players())))
-        print(manager)
-        input()
         pass
         
 

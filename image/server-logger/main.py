@@ -25,11 +25,11 @@ def main():
     manager = Manager()
     
     write_options = []
-    if os.getenv("WRITE_TO_LOGS", 1) == 1:
+    if os.getenv("WRITE_TO_LOGS", 1) == "1":
         write_options.append(write_to_logs)
-    if os.getenv("WRITE_TO_FILE", 0) == 1:
+    if os.getenv("WRITE_TO_FILE", 0) == "1":
         write_options.append(write_to_file)
-    if os.getenv("FEED_TO_MANAGER", 0) == 1:
+    if os.getenv("FEED_TO_MANAGER", 0) == "1":
         write_options.append(write_to_manager)
     # Continuously read the output line by line
     try:

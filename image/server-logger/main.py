@@ -20,7 +20,7 @@ def main():
                 output = process.stdout.readline()
                 if output:
                     # print(output.strip())
-                    manager.feed_line(output)
+                    # manager.feed_line(output)
                     file.write(output)
         
         # Read the remaining output

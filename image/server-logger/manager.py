@@ -15,6 +15,7 @@ leaderboard_name = os.getenv("LEADERBOARD_NAME")
 game_name = os.getenv("GAME_NAME")
 leaderboard_user = os.getenv("LEADERBOARD_USER")
 leaderboard_password = os.getenv("LEADERBOARD_PASSWORD")
+max_points = os.getenv("MAX_POINTS", 60)
 
 class Player:
     current_rank = 0
@@ -26,9 +27,9 @@ class Player:
         self.id_: int = -1
         self.points_: int = 0    
     
-    def set_points(self, number_of_participants: int, rank: int):
+    def set_points(self, rank: int):
         self.rank_ = rank
-        self.points_ = number_of_participants - self.rank_ + 1
+        self.points_ = max_points - self.rank_ + 1
         if self.rank_ <=3:
             self.points_ += (3 - self.rank_ + 1)
         pass    
@@ -116,7 +117,7 @@ class Manager:
         self.players_.sort(key=lambda x: x.get_rank(), reverse=True)
         counter = 0
         for p in self.players_:
-            p.set_points(len(self.players_), (counter := counter + 1))
+            p.set_points((counter := counter + 1))
     
     @action
     def player_join(self, line: str):

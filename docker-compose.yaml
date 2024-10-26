@@ -11,3 +11,4 @@ services:
       - GAME_NAME=TABG
       - LEADERBOARD_USER=game
       - LEADERBOARD_PASSWORD=1234
+      - MAX_POINTS=60

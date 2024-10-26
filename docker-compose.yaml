@@ -1,7 +1,7 @@
 
 services:
   tabg:
-    image: tabg
+    image: ghcr.io/kaindorf-games/tabg-server:main
     volumes:
       - ./config:/games/config
       - ./logs:/games/logs
@@ -12,3 +12,6 @@ services:
       - LEADERBOARD_USER=game
       - LEADERBOARD_PASSWORD=1234
       - MAX_POINTS=60
+      - WRITE_TO_LOGS=1
+      - WRITE_TO_FILE=1
+      - FEED_TO_MANAGER=0
